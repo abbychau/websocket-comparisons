@@ -1,4 +1,11 @@
+> npm install -g artillery
+
 artillery run artillery/ws.yml
+
+
+# Scenarios
+1. Echo Server: 5000 consumer.
+2. Prolong Server: 5000 consumer.
 
 # Test Summary
 
