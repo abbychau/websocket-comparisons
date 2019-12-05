@@ -1,0 +1,13 @@
+config:
+  target: "ws://localhost:8080/echo"
+  processor: "./my-functions.js"
+  phases:
+    - duration: 5
+      arrivalRate: 1000
+  ws:
+    # Set a custom subprotocol:
+    Sec-WebSocket-Protocol: abby-test
+scenarios:
+  - engine: "ws"
+    flow:
+      - send: "test"
