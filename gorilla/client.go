@@ -17,18 +17,17 @@ import (
 var addr = flag.String("addr", "ps2:8080", "http service address")
 
 func main(){
-	// Increase resources limitations
-	var rLimit syscall.Rlimit
-	if err := syscall.Getrlimit(syscall.RLIMIT_NOFILE, &rLimit); err != nil {
-		panic(err)
-	}
-	rLimit.Cur = rLimit.Max
-	if err := syscall.Setrlimit(syscall.RLIMIT_NOFILE, &rLimit); err != nil {
-		panic(err)
-	}
-        
+        // Increase resources limitations
+        var rLimit syscall.Rlimit
+        if err := syscall.Getrlimit(syscall.RLIMIT_NOFILE, &rLimit); err != nil {
+                panic(err)
+        }
+        rLimit.Cur = rLimit.Max
+        if err := syscall.Setrlimit(syscall.RLIMIT_NOFILE, &rLimit); err != nil {
+                panic(err)
+        }
         var wg sync.WaitGroup
-        for k:=0;k<3;k++{
+        for k:=0;k<1500;k++{
                 wg.Add(1)
                 go goZilla(&wg, k)
         }
@@ -36,6 +35,7 @@ func main(){
 }
 
 func goZilla(wg *sync.WaitGroup, id int) {
+        defer wg.Done()
         fmt.Printf("Worker %v: Started\n", id)
         flag.Parse()
         log.SetFlags(0)
@@ -57,14 +57,14 @@ func goZilla(wg *sync.WaitGroup, id int) {
         go func() {
                 defer close(done)
                 for {
-                        _, message, err := c.ReadMessage()
+                        _, _, err := c.ReadMessage()
                         if err != nil {
                                 log.Println("read:", err)
                                 return
                         }
                         received += 1
                         if received % 1000 == 0 {
-                                log.Printf("recv: %s", message)
+                                //log.Printf("recv: %s", message)
                                 log.Printf("id:"+strconv.Itoa(id)+",t:"+strconv.Itoa(received))
                         }
                 }
@@ -81,6 +81,9 @@ func goZilla(wg *sync.WaitGroup, id int) {
                         err := c.WriteMessage(websocket.TextMessage, []byte(t.String()))
                         if err != nil {
                                 log.Println("write:", err)
+                                return
+                        }
+                        if received >= 20000 {
                                 return
                         }
                 case <-interrupt:
