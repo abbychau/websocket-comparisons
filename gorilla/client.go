@@ -11,11 +11,22 @@ import (
         "sync"
         "fmt"
         "github.com/gorilla/websocket"
+        "syscall"
 )
 
 var addr = flag.String("addr", "ps2:8080", "http service address")
 
 func main(){
+	// Increase resources limitations
+	var rLimit syscall.Rlimit
+	if err := syscall.Getrlimit(syscall.RLIMIT_NOFILE, &rLimit); err != nil {
+		panic(err)
+	}
+	rLimit.Cur = rLimit.Max
+	if err := syscall.Setrlimit(syscall.RLIMIT_NOFILE, &rLimit); err != nil {
+		panic(err)
+	}
+        
         var wg sync.WaitGroup
         for k:=0;k<3;k++{
                 wg.Add(1)
