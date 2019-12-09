@@ -8,6 +8,10 @@
 1. long Server-Pushes : 5000 consumer.
 2. Echo Server: 5000 consumer.
 
+# Library to be tested
+
+1. 
+
 
 # Test Settings
 ```
@@ -38,6 +42,34 @@ This test is done by mimicing the following setting:
 3. p1 is invoking p2 every second and check if there are 10 messages.
 4. Every message is 1000-byte in size excluding websocket headers.
 5. Capture the upper limit of clients that could be supported without runtime error
+
+
+```
+
++--Every Second--------------------+
+|                                  |
+|  +---------+ ack    +---------+  |
+|  |         +-------->         |  |
+|  | client  |        | Server  |  |
+|  |         <--------+         |  |
+|  |         |1KB*10  |         |  |
+|  |         <--------+         |  |
+|  |         <--------|         |  |
+|  |         <--------|         |  |
+|  |         <--------|         |  |
+|  |         <--------|         |  |
+|  |         <--------|         |  |
+|  |         <--------|         |  |
+|  |         <--------|         |  |
+|  |         <--------+         |  |
+|  |         |        |         |  |
+|  |         |        |         |  |
+|  +---------+        +---------+  |
+|                                  |
++----------------------------------+
+
+```
+
 
 - Gorilla (Go): 7432
 
