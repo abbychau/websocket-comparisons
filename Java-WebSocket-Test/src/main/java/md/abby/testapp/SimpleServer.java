@@ -28,8 +28,8 @@ public class SimpleServer extends WebSocketServer {
 	@Override
 	public void onMessage(WebSocket conn, String message) {
 		System.out.println("received message from "	+ conn.getRemoteSocketAddress() + ": " + message);
-		for (int i=0;i<1000;i++){
-			conn.send("Test");
+		for (int i=0;i<10;i++){
+			conn.send("0".repeat(1000));
 		}
 	}
 
