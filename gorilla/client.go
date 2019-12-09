@@ -66,7 +66,7 @@ func goZilla(wg *sync.WaitGroup, id int) {
 			received += 1
 			if received%50 == 0 {
 				//log.Printf("recv: %s", message)
-				log.Printf("id:" + strconv.Itoa(id) + ",t:" + strconv.Itoa(received))
+				log.Printf("thread:" + strconv.Itoa(id) + ",received:" + strconv.Itoa(received))
 			}
 		}
 	}()

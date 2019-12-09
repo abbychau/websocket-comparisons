@@ -9,6 +9,23 @@
 2. Echo Server: 5000 consumer.
 
 
+# Test Settings
+```
++-------------------+      +----------------------------------+
+|                   |      |                                  |
+| AWS EC2 r4.xlarge |2500  |                                  |
+|                   +------>                                  |
+| (Client)          |      |                                  |
++-------------------+      |                                  |
+                           |      AWS EC2 r4.xlarge           |
++-------------------+      |      (Server)                    |
+|                   |      |                                  |
+| AWS EC2 r4.xlarge |2500  |                                  |
+|                   +------>                                  |
+| (Client)          |      |                                  |
++-------------------+      +----------------------------------+
+```
+
 # Test Summary
 
 
@@ -17,9 +34,9 @@
 This test is done by mimicing the following setting:
 
 1. There are 5000 ws connections invoked from server p1.
-2. p2 is the server, after recving a heartbeat signal, it will pushes 1000 websocket send to the invoker.
-3. p1 is invoking p2 every second and check if there are 1000 messages.
-4. Every message is 4-byte in size without including websocket headers.
+2. p2 is the server, after recving a heartbeat signal, it will pushes 10 websocket send to the invoker.
+3. p1 is invoking p2 every second and check if there are 10 messages.
+4. Every message is 1000-byte in size excluding websocket headers.
 5. Capture the upper limit of clients that could be supported without runtime error
 
 - Gorilla (Go): 7432

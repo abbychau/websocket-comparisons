@@ -18,7 +18,7 @@ fn main() {
         let ip = client.peer_addr().unwrap();
         println!("Connection from {}", ip);
 
-        let message = OwnedMessage::Text("Hello".to_string());
+        let message = OwnedMessage::Text(std::iter::repeat("X").take(10000).collect::<String>());
 
         let (mut receiver, mut sender) = client.split().unwrap();
         sender.send_message(&message).unwrap();
