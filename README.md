@@ -1,13 +1,47 @@
+
+
+
+
+
+
+# Scenarios
+1. long Server-Pushes : 5000 consumer.
+2. Echo Server: 5000 consumer.
+
+
+# Test Summary
+
+
+## long Server-Pushes 
+
+This test is done by mimicing the following setting:
+
+1. There are 5000 ws connections invoked from server p1.
+2. p2 is the server, after recving a heartbeat signal, it will pushes 1000 websocket send to the invoker.
+3. p1 is invoking p2 every second and check if there are 1000 messages.
+4. Every message is 4-byte in size without including websocket headers.
+5. Capture the upper limit of clients that could be supported without runtime error
+
+- Gorilla (Go): 7432
+
+- ws (node)
+- Java-WebSocket
+- Rust-WebSocket
+
+
+## Echo Server
+
+
+This test is done with the following setting:
+
+1. 5000 virtual clients are invoked to server p2 by performance tool `artillery`
+2. check if all codes are 0, if yes, take the Request latency
+3. Server only return one message
+
 > npm install -g artillery
 
 artillery run artillery/ws.yml
 
-
-# Scenarios
-1. Echo Server: 5000 consumer.
-2. Prolong Server: 5000 consumer.
-
-# Test Summary
 
 ## Gorilla
 > go run server.go

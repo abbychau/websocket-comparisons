@@ -1,5 +1,5 @@
 config:
-  target: "ws://localhost:8080/echo"
+  target: "ws://p2:8080/echo"
   processor: "./my-functions.js"
   phases:
     - duration: 5

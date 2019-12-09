@@ -1,5 +1,5 @@
 [package]
-name = "RustWebSocketTest"
+name = "rust_web_socket_test"
 version = "0.1.0"
 authors = ["abby <abby@kabu.com>"]
 edition = "2018"
@@ -8,4 +8,3 @@ edition = "2018"
 
 [dependencies]
 websocket = "0.24.0"
-

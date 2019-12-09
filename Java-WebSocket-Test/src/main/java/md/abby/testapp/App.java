@@ -13,7 +13,7 @@ public class App
 {
 
 	public static void main(String[] args) {
-		String host = "localhost";
+		String host = "p2";
 		int port = 8080;
 
 		WebSocketServer server = new SimpleServer(new InetSocketAddress(host, port));
