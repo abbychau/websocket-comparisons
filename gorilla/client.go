@@ -27,7 +27,7 @@ func main(){
                 panic(err)
         }
         var wg sync.WaitGroup
-        for k:=0;k<1500;k++{
+        for k:=0;k<2500;k++{
                 wg.Add(1)
                 go goZilla(&wg, k)
         }
@@ -63,7 +63,7 @@ func goZilla(wg *sync.WaitGroup, id int) {
                                 return
                         }
                         received += 1
-                        if received % 1000 == 0 {
+                        if received % 50 == 0 {
                                 //log.Printf("recv: %s", message)
                                 log.Printf("id:"+strconv.Itoa(id)+",t:"+strconv.Itoa(received))
                         }
