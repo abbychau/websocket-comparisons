@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Client</title>
+</head>
+<script type="text/javascript">
+    var socket;
+    // window.onsubmit=function (event) {
+    if(!window.WebSocket){
+        alert("Unsupported Browser!");
+    }else{
+        socket=new WebSocket("ws://localhost:8080/ws");
+        socket.onmessage=function(event){
+            var ta=document.getElementById("response");
+            ta.value=ta.value + "\n" + event.data;
+        }
+        socket.onopen=function (event) {
+            var ta=document.getElementById("response");
+            ta.value= ta.value+"\n"+"Connection Started!"
+        }
+        socket.onclose=function (event) {
+            var ta=document.getElementById("response");
+            ta.value= ta.value+"\n"+"Connection Ended!"
+        }
+    }
+    // }
+    function send() {
+        var message =document.getElementById("message").value;
+        if(!window.WebSocket){
+            return false;
+        }
+        if(socket.OPEN==WebSocket.OPEN){
+            socket.send(message);
+        }else{
+            alert("Not yet connected.");
+        }
+    }
+</script>
+<body>
+<form onsubmit="return false;">
+    <h3>Message Input:</h3>
+    <textarea id="message" style="width: 400px;height: 300px"></textarea>
+    <br/>
+    <input type="button" value="Send" onclick="javascript:send()">
+    <h3>Message Output:</h3>
+    <textarea id="response" style="width: 400px;height: 300px"></textarea>
+    <br/>
+    <input type="button" onclick="javascript: document.getElementById('response').value=''" value="Clear"/>
+</form>
+</body>
+</html>

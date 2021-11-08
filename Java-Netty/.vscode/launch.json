@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - KabuKafkaConsumer",
+            "request": "launch",
+            "mainClass": "fhws.KabuKafkaConsumer",
+            "projectName": "echo"
+        }
+    ]
+}

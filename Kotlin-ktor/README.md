@@ -1,0 +1,3 @@
+# Usage
+
+`./gradlew run`
